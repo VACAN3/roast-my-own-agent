@@ -11,6 +11,9 @@ LINE = "My agent self-verifies every line before delivering it \u2014 and this i
 
 
 def main() -> None:
+    # Competition gate reads 1-200 characters: validate before emitting.
+    if not 1 <= len(LINE) <= 200:
+        raise ValueError(f"entry must be 1-200 characters, got {len(LINE)}")
     print(LINE)
     out = os.environ.get("ENTRY_OUTPUT", "/output/entry.txt")
     os.makedirs(os.path.dirname(out), exist_ok=True)
